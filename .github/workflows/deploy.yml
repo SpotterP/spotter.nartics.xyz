@@ -34,13 +34,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # Pages dice dónde se publica la web: en <org>.github.io/<repo>/ o,
-      # con dominio propio, en la raíz de ese dominio.
       - name: Build Astro
         run: npm run build
         env:
-          SITE_URL: ${{ steps.pages.outputs.origin }}
-          BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          SITE_URL: https://spotter.nartics.xyz
+          BASE_PATH: /
 
       - name: Upload build
         uses: actions/upload-pages-artifact@v3
