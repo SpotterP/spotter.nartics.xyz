@@ -12,5 +12,8 @@
     "@fontsource-variable/hanken-grotesk": "^5.0.0",
     "@phosphor-icons/core": "^2.1.1",
     "astro": "^7.4.12"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
   }
 }
