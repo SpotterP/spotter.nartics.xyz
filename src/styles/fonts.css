@@ -1,0 +1,112 @@
+/* Spotter Display: la tipografía propia. Solo mayúsculas, cifras tabulares, dos pesos. */
+@font-face {
+  font-family: "Spotter Display";
+  src: url("../assets/fonts/SpotterDisplay-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Spotter Display";
+  src: url("../assets/fonts/SpotterDisplay-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Estilos de texto de la línea gráfica. Display: lo que se lee de un vistazo. */
+.display-xl,
+.display-lg,
+.display-md,
+.display-sm,
+.stat-xl,
+.stat-md,
+.label,
+.overline {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+}
+
+.display-xl {
+  font-size: min(15.5vw, 7.5rem);
+  line-height: 0.94;
+  font-weight: 700;
+}
+
+.display-lg {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  line-height: 1;
+  font-weight: 700;
+}
+
+.display-md {
+  font-size: 1.75rem;
+  line-height: 1.875rem;
+  font-weight: 700;
+}
+
+.display-sm {
+  font-size: 1.25rem;
+  line-height: 1.5rem;
+  font-weight: 700;
+}
+
+.stat-xl {
+  font-size: 3.5rem;
+  line-height: 3.5rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-md {
+  font-size: 1.75rem;
+  line-height: 1.75rem;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+
+.label {
+  font-size: 0.875rem;
+  line-height: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.overline {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+}
+
+/* Texto: lo que se lee seguido, en Hanken Grotesk. */
+.lead {
+  font-size: clamp(1.125rem, 1.6vw, 1.375rem);
+  line-height: 1.45;
+}
+
+.body-strong {
+  font-weight: 600;
+}
+
+.body-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.caption {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 500;
+}
+
+.muted {
+  color: var(--ink-muted);
+}
+
+@media (min-width: 900px) {
+  .display-xl {
+    font-size: clamp(4rem, 8.2vw, 7.5rem);
+  }
+}

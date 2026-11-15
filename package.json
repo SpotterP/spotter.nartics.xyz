@@ -1,0 +1,16 @@
+{
+  "name": "spotter-site",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@fontsource-variable/hanken-grotesk": "^5.0.0",
+    "@phosphor-icons/core": "^2.1.1",
+    "astro": "^7.4.12"
+  }
+}

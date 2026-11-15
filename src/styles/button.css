@@ -1,0 +1,77 @@
+/* Botones: 48px de alto y redondos, porque citan el disco del logo. */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--space-12);
+  padding: 0 var(--space-6);
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-full);
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  line-height: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--motion),
+    border-color var(--motion),
+    color var(--motion);
+}
+
+/* Acción principal: relleno spot con texto on-spot. Una por pantalla. */
+.button--primary {
+  background: var(--spot);
+  color: var(--on-spot);
+}
+
+.button--primary:hover,
+.button--primary:active {
+  background: var(--spot-pressed);
+}
+
+.button--secondary {
+  border-color: var(--border-strong);
+  color: var(--ink);
+}
+
+.button--secondary:hover {
+  border-color: var(--ink);
+  background: var(--surface-raised);
+}
+
+/* Sobre amarillo: relleno tinta. */
+.button--ink {
+  background: var(--on-spot);
+  color: #f5f3ea;
+}
+
+.button--ink:hover {
+  background: #2b2a24;
+}
+
+.button--block {
+  width: 100%;
+}
+
+.button--icon {
+  width: var(--space-12);
+  padding: 0;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--space-8);
+  padding: 0 var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--ink-muted);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}

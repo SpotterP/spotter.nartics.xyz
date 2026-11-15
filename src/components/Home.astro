@@ -1,0 +1,262 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Logo from "./Logo.astro";
+import Icon from "./Icon.astro";
+import SetDemo from "./SetDemo.astro";
+import { SITE } from "../config";
+import { formatNumber, useTranslations, type Lang } from "../i18n/ui";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const { webApp, android, ios, github } = SITE.links;
+const hasApp = Boolean(android || ios);
+
+// Qué hay en cada sitio en la primera versión.
+const platforms = [
+  { name: t("platforms.account"), app: true, web: true },
+  { name: t("features.routines.title"), app: true, web: true },
+  { name: t("features.progress.title"), app: true, web: true },
+  { name: t("features.calendar.title"), app: true, web: false },
+  { name: t("features.train.title"), app: true, web: false },
+];
+
+const routines = [
+  { name: t("sample.legs"), n: 5 },
+  { name: t("sample.push"), n: 6 },
+  { name: t("sample.pull"), n: 5 },
+];
+
+const week = t("sample.weekdays")
+  .split(" ")
+  .map((d, i) => ({ d, n: 9 + i, today: i === 2 }));
+
+const bars = [52, 58, 58, 66, 70, 70, 82, 100];
+const record = `${formatNumber(lang, 85)} kg`;
+---
+
+<Layout lang={lang} path="/">
+  <section class="hero">
+    <div class="container hero__inner">
+      <div>
+        <h1 class="display-xl">{t("hero.title")}</h1>
+        <p class="lead hero__lead">
+          {t("hero.lead")}
+        </p>
+        <div class="hero__actions">
+          {
+            webApp ? (
+              <a class="button button--secondary" href={webApp}>
+                {t("cta.webApp")}
+              </a>
+            ) : (
+              <a class="button button--secondary" href="#features">
+                {t("cta.features")}
+              </a>
+            )
+          }
+          {android && <a class="button button--secondary" href={android}>Android</a>}
+          {ios && <a class="button button--secondary" href={ios}>iPhone</a>}
+          {!webApp && !hasApp && <p class="status">{t("soon.all")}</p>}
+        </div>
+      </div>
+
+      <SetDemo lang={lang} />
+    </div>
+  </section>
+
+  <section class="section about" id="about">
+    <div class="container">
+      <div class="about__inner">
+        <h2 class="display-lg">{t("about.title")}</h2>
+        <div class="about__text">
+          <p>{t("about.p1")}</p>
+          <p>{t("about.p2")}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section__head">
+        <h2 class="display-lg">{t("features.title")}</h2>
+        <p class="lead">{t("features.lead")}</p>
+      </div>
+
+      <div class="features">
+        <article class="feature feature--wide">
+          <div class="feature__view" aria-hidden="true">
+            <div class="rows">
+              {
+                routines.map((routine) => (
+                  <div class="row">
+                    <span class="display-sm">{routine.name}</span>
+                    <span class="body-sm">{t("sample.exercises", { n: routine.n })}</span>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+          <div class="feature__text">
+            <h3 class="display-md">{t("features.routines.title")}</h3>
+            <p>{t("features.routines.text")}</p>
+          </div>
+        </article>
+
+        <article class="feature feature--narrow">
+          <div class="feature__view" aria-hidden="true">
+            <div>
+              <div class="week">
+                {
+                  week.map((day) => (
+                    <div class:list={["week__day", { "week__day--today": day.today }]}>
+                      <span class="overline">{day.d}</span>
+                      <span class="week__num">{day.n}</span>
+                    </div>
+                  ))
+                }
+              </div>
+              <div class="row week__routine">
+                <span class="body-strong">{t("sample.today")}</span>
+                <span class="body-sm">{t("sample.exercises", { n: 6 })}</span>
+              </div>
+            </div>
+          </div>
+          <div class="feature__text">
+            <h3 class="display-md">{t("features.calendar.title")}</h3>
+            <p>{t("features.calendar.text")}</p>
+          </div>
+        </article>
+
+        <article class="feature feature--narrow">
+          <div class="feature__view" aria-hidden="true">
+            <div class="start">
+              <div class="row">
+                <span class="body-strong">{t("sample.todayRoutine")}</span>
+                <span class="start__play"><Icon name="play" size={20} /></span>
+              </div>
+              <div class="row row--muted">
+                <span>{t("sample.otherRoutine")}</span>
+              </div>
+              <div class="row row--muted">
+                <span>{t("sample.empty")}</span>
+              </div>
+            </div>
+          </div>
+          <div class="feature__text">
+            <h3 class="display-md">{t("features.train.title")}</h3>
+            <p>{t("features.train.text")}</p>
+          </div>
+        </article>
+
+        <article class="feature feature--wide">
+          <div class="feature__view" aria-hidden="true">
+            <div class="chart">
+              <div class="chart__head">
+                <span class="display-sm">{t("demo.exercise")}</span>
+                <span class="stat-md">{record}</span>
+              </div>
+              <div class="chart__bars">
+                {
+                  bars.map((h, i) => (
+                    <span
+                      class:list={["chart__bar", { "chart__bar--last": i === bars.length - 1 }]}
+                      style={`height:${h}%`}
+                    />
+                  ))
+                }
+              </div>
+              <span class="chart__record body-sm">{t("demo.record", { value: record })}</span>
+            </div>
+          </div>
+          <div class="feature__text">
+            <h3 class="display-md">{t("features.progress.title")}</h3>
+            <p>{t("features.progress.text")}</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="platforms">
+    <div class="container platforms__inner">
+      <div class="section__head">
+        <h2 class="display-lg">{t("platforms.title")}</h2>
+        <p class="lead">
+          {t("platforms.lead")}
+        </p>
+        <div class="platforms__status">
+          {
+            webApp ? (
+              <a class="button button--secondary" href={webApp}>
+                {t("cta.webApp")}
+              </a>
+            ) : (
+              <p class="status">{t("soon.webApp")}</p>
+            )
+          }
+          {android && <a class="button button--secondary" href={android}>Android</a>}
+          {ios && <a class="button button--secondary" href={ios}>iPhone</a>}
+          {!hasApp && <p class="status">{t("soon.app")}</p>}
+        </div>
+      </div>
+
+      <div class="platforms__table-wrap">
+        <table class="platforms__table">
+          <thead>
+            <tr>
+              <th scope="col"><span class="visually-hidden">{t("platforms.feature")}</span></th>
+              <th scope="col" class="col overline">{t("platforms.app")}</th>
+              <th scope="col" class="col overline">{t("platforms.web")}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              platforms.map((row) => (
+                <tr>
+                  <th scope="row">{row.name}</th>
+                  {[row.app, row.web].map((yes) => (
+                    <td class:list={["col", { no: !yes }]}>
+                      <Icon name={yes ? "check" : "minus"} size={20} />
+                      <span class="visually-hidden">{yes ? t("platforms.yes") : t("platforms.no")}</span>
+                    </td>
+                  ))}
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section closing">
+    <div class="container">
+      <div class="closing__band">
+        <Logo tinta />
+        <p class="closing__text">{t("closing.text")}</p>
+        {
+          (webApp || github) && (
+            <div class="closing__actions">
+              {webApp && (
+                <a class="button button--ink" href={webApp}>
+                  {t("cta.webApp")}
+                </a>
+              )}
+              {github && (
+                <a class="button button--ink" href={github}>
+                  {t("cta.code")}
+                </a>
+              )}
+            </div>
+          )
+        }
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,62 @@
+/* Línea gráfica de Spotter: tokens. Oscuro es el tema principal. */
+:root {
+  color-scheme: dark;
+
+  --bg: #0e0e0c;
+  --surface: #191917;
+  --surface-raised: #252522;
+  --border: #33332f;
+  --border-strong: #7b7b72;
+  --ink: #f5f3ea;
+  --ink-muted: #a9a79c;
+  --spot: #ffd012;
+  --spot-pressed: #e6b800;
+  --on-spot: #12110d;
+  --spot-text: #ffd012;
+  --spot-tint: #2b2607;
+  --success: #3ad6b4;
+  --danger: #ff7366;
+  --warning: #ff9f45;
+  --focus: #f5f3ea;
+
+  --font-display: "Spotter Display", "Hanken Grotesk Variable", system-ui, sans-serif;
+  --font-text: "Hanken Grotesk Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+  --radius-full: 999px;
+
+  /* Movimiento corto y seco, sin rebotes. */
+  --motion: 160ms ease-out;
+
+  --page-width: 1200px;
+  --page-margin: clamp(var(--space-4), 4vw, var(--space-12));
+  --section-gap: clamp(72px, 11vw, 144px);
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+
+  --bg: #f5f3ea;
+  --surface: #ffffff;
+  --surface-raised: #ece9dc;
+  --border: #dad6c7;
+  --border-strong: #77746a;
+  --ink: #12110d;
+  --ink-muted: #5a584e;
+  --spot-text: #725500;
+  --spot-tint: #fff3b5;
+  --success: #006b58;
+  --danger: #b92718;
+  --warning: #9a4d00;
+  --focus: #12110d;
+}

@@ -1,0 +1,59 @@
+---
+import "@fontsource-variable/hanken-grotesk";
+import "../styles/reset.css";
+import "../styles/root.css";
+import "../styles/fonts.css";
+import "../styles/elements.css";
+import "../styles/button.css";
+import "../styles/header.css";
+import "../styles/footer.css";
+import "../styles/main.css";
+
+import SEO from "../components/SEO.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { defaultLang, useTranslations, withBase, type Lang } from "../i18n/ui";
+
+interface Props {
+  lang?: Lang;
+  title?: string;
+  description?: string;
+  /** Ruta sin prefijo de idioma ("/"): enlaza las versiones en los otros idiomas. */
+  path?: string;
+}
+
+const { lang = defaultLang, title, description, path } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0E0E0C" />
+
+    <link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
+    <link rel="apple-touch-icon" href={withBase("/apple-touch-icon.png")} />
+
+    <SEO lang={lang} title={title} description={description} path={path} />
+
+    <!-- Aplica el tema guardado antes de pintar, para que no parpadee. -->
+    <script is:inline>
+      try {
+        if (localStorage.getItem("theme") === "light") {
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#content">{t("a11y.skip")}</a>
+    <Header lang={lang} path={path ?? "/"} />
+    <main id="content">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+    <script src="../scripts/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,41 @@
+.footer {
+  margin-top: calc(var(--section-gap) / 2);
+  border-top: 1px solid var(--border);
+  padding-block: var(--space-12);
+}
+
+.footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-8);
+}
+
+.footer__brand .logo {
+  width: 148px;
+  margin-bottom: var(--space-4);
+}
+
+.footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-6);
+}
+
+.footer__links a {
+  color: var(--ink-muted);
+  text-decoration: none;
+}
+
+.footer__links a:hover {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.footer__legal {
+  width: 100%;
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--border);
+}

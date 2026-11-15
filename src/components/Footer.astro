@@ -1,0 +1,45 @@
+---
+import Logo from "./Logo.astro";
+import { NAV, SITE, navHref } from "../config";
+import { localePath, useTranslations, type Lang } from "../i18n/ui";
+
+interface Props {
+    lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const home = localePath(lang);
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+    <div class="container footer__inner">
+        <div class="footer__brand">
+            <Logo />
+            <p class="muted">{t("site.tagline")}</p>
+        </div>
+
+        <ul class="footer__links">
+            {NAV.map((item) => (
+                <li>
+                    <a href={navHref(home, item.href)}>{t(item.label)}</a>
+                </li>
+            ))}
+            {SITE.links.webApp && (
+                <li>
+                    <a href={SITE.links.webApp}>{t("footer.webApp")}</a>
+                </li>
+            )}
+            {SITE.links.github && (
+                <li>
+                    <a href={SITE.links.github}>GitHub</a>
+                </li>
+            )}
+        </ul>
+
+        <p class="footer__legal body-sm muted">
+            © {year} {SITE.name}
+        </p>
+    </div>
+</footer>

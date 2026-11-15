@@ -1,0 +1,79 @@
+---
+import Logo from "./Logo.astro";
+import Icon from "./Icon.astro";
+import { NAV, SITE, navHref } from "../config";
+import { languages, localePath, useTranslations, type Lang } from "../i18n/ui";
+
+interface Props {
+    lang: Lang;
+    /** Ruta de la página sin prefijo de idioma: el selector lleva a la misma página. */
+    path: string;
+}
+
+const { lang, path } = Astro.props;
+const t = useTranslations(lang);
+const home = localePath(lang);
+---
+
+<header class="header">
+    <div class="container header__inner">
+        <a class="header__logo" href={home} aria-label={t("a11y.home")}>
+            <Logo />
+        </a>
+
+        <nav class="nav" aria-label={t("a11y.sections")}>
+            <ul class="nav__list">
+                {NAV.map((item) => (
+                    <li>
+                        <a class="nav__link" href={navHref(home, item.href)}>
+                            {t(item.label)}
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        </nav>
+
+        <div class="header__actions">
+            <nav class="langs" aria-label={t("a11y.language")}>
+                <ul class="langs__list">
+                    {(Object.keys(languages) as Lang[]).map((l) => (
+                        <li>
+                            <a
+                                class="langs__link label"
+                                href={localePath(l, path)}
+                                hreflang={l}
+                                lang={l}
+                                aria-current={l === lang ? "true" : undefined}
+                                title={languages[l].name}
+                            >
+                                {languages[l].label}
+                                <span class="visually-hidden">
+                                    {languages[l].name}
+                                </span>
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+            </nav>
+            <button
+                class="button button--secondary button--icon theme-toggle"
+                id="theme-toggle"
+                type="button"
+                aria-label={t("theme.toLight")}
+                data-label-light={t("theme.toLight")}
+                data-label-dark={t("theme.toDark")}
+            >
+                <Icon name="sun" size={20} class="icon--sun" />
+                <Icon name="moon" size={20} class="icon--moon" />
+            </button>
+            {SITE.links.webApp && (
+                <a
+                    class="button button--secondary header__cta"
+                    href={SITE.links.webApp}
+                >
+                    {t("cta.webApp")}
+                </a>
+            )}
+        </div>
+    </div>
+</header>

@@ -1,0 +1,30 @@
+---
+// Iconos Phosphor en peso Bold, como pide la línea gráfica.
+import check from "@phosphor-icons/core/bold/check-bold.svg?raw";
+import play from "@phosphor-icons/core/bold/play-bold.svg?raw";
+import sun from "@phosphor-icons/core/bold/sun-bold.svg?raw";
+import moon from "@phosphor-icons/core/bold/moon-bold.svg?raw";
+import minus from "@phosphor-icons/core/bold/minus-bold.svg?raw";
+
+const icons = { check, play, sun, moon, minus };
+
+interface Props {
+  name: keyof typeof icons;
+  size?: 16 | 20 | 24;
+  class?: string;
+}
+const { name, size = 24, class: className } = Astro.props;
+const svg = icons[name].replace(
+  "<svg",
+  `<svg width="${size}" height="${size}" aria-hidden="true" focusable="false"`,
+);
+---
+
+<span class:list={["icon", className]} set:html={svg} />
+
+<style>
+  .icon {
+    display: inline-flex;
+    flex: none;
+  }
+</style>

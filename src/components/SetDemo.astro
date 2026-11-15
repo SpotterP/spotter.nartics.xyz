@@ -1,0 +1,87 @@
+---
+// Demo de la portada: así se apunta un entrenamiento en Spotter.
+// La lógica está en src/scripts/main.ts; los textos que cambian van en data-*.
+import Icon from "./Icon.astro";
+import { formatNumber, useTranslations, type Lang } from "../i18n/ui";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const sets = [
+  { kg: 80, reps: 8 },
+  { kg: 80, reps: 8 },
+  { kg: 82.5, reps: 8 },
+  { kg: 82.5, reps: 7 },
+  { kg: 85, reps: 6 },
+].map((set) => ({ ...set, kg: formatNumber(lang, set.kg) }));
+
+const done = 2; // series ya hechas al cargar
+const last = sets[sets.length - 1];
+---
+
+<div
+  class="demo"
+  id="demo"
+  data-done={done}
+  data-label-set={t("demo.set")}
+  data-label-all={t("demo.allSets")}
+  data-label-done={t("demo.done")}
+  data-label-pending={t("demo.pending")}
+>
+  <p class="overline demo__overline" id="demo-overline" aria-live="polite">
+    {t("demo.set", { n: done + 1, total: sets.length })}
+  </p>
+  <h2 class="display-md demo__exercise">{t("demo.exercise")}</h2>
+
+  <p class="demo__stat">
+    <span class="stat-xl" id="demo-kg">{sets[done].kg}</span>
+    <span class="label">kg</span>
+    <span class="stat-md" id="demo-reps">× {sets[done].reps}</span>
+  </p>
+
+  <ol class="demo__sets">
+    {
+      sets.map((set, i) => (
+        <li
+          class="set"
+          data-kg={set.kg}
+          data-reps={set.reps}
+          data-state={i < done ? "done" : i === done ? "current" : "pending"}
+        >
+          <span class="set__n label">{i + 1}</span>
+          <span class="set__value">
+            {set.kg} kg × {set.reps}
+          </span>
+          <span class="set__dot">
+            <Icon name="check" size={16} />
+          </span>
+          <span class="visually-hidden set__state">
+            {i < done ? t("demo.done") : t("demo.pending")}
+          </span>
+        </li>
+      ))
+    }
+  </ol>
+
+  <div id="demo-end" hidden>
+    <p class="demo__record">
+      {t("demo.record", { value: `${last.kg} kg × ${last.reps}` })}
+    </p>
+    <p class="demo__saved">
+      <Icon name="check" size={20} />
+      {t("demo.saved")}
+    </p>
+  </div>
+
+  <button class="button button--primary button--block" id="demo-next" type="button">
+    {t("demo.next")}
+  </button>
+  <button class="button button--secondary button--block" id="demo-reset" type="button" hidden>
+    {t("demo.reset")}
+  </button>
+  <p class="caption demo__hint">{t("demo.hint")}</p>
+</div>

@@ -1,0 +1,39 @@
+---
+// GitHub Pages sirve esta página para cualquier dirección que no exista.
+// Lleva el texto en los tres idiomas y enseña el de la ruta (/es/..., /ca/...).
+import Layout from "../layouts/Layout.astro";
+import { languages, localePath, useTranslations, withBase, type Lang } from "../i18n/ui";
+
+const langs = Object.keys(languages) as Lang[];
+---
+
+<Layout title="404 | Spotter">
+  <div class="container" id="notfound" data-base={withBase("/")}>
+    {
+      langs.map((lang) => {
+        const t = useTranslations(lang);
+        return (
+          <section class="notfound" lang={lang} data-lang={lang} hidden={lang !== "en"}>
+            <h1 class="display-lg">{t("notfound.title")}</h1>
+            <p class="lead muted">{t("notfound.text")}</p>
+            <a class="button button--secondary" href={localePath(lang)}>
+              {t("notfound.back")}
+            </a>
+          </section>
+        );
+      })
+    }
+  </div>
+</Layout>
+
+<script is:inline>
+  (function () {
+    var box = document.getElementById("notfound");
+    var rest = location.pathname.slice(box.dataset.base.length).split("/")[0];
+    var lang = rest === "es" || rest === "ca" ? rest : "en";
+    box.querySelectorAll("[data-lang]").forEach(function (el) {
+      el.hidden = el.dataset.lang !== lang;
+    });
+    document.documentElement.lang = lang;
+  })();
+</script>
