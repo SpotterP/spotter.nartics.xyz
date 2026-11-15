@@ -1,9 +1,9 @@
 // Datos de la web en un solo sitio. Cambia aquí el dominio y los enlaces.
 export const SITE = {
   name: "Spotter",
-  // Dominio provisional, solo para compilar en local. En GitHub Pages la dirección
-  // real (la de github.io o vuestro dominio) la pone el workflow de despliegue.
-  url: "https://spot.com",
+  // Dominio principal para compilaciones locales. El workflow lo establece
+  // explícitamente al generar la versión publicada.
+  url: "https://spotter.nartics.xyz",
 
   // Deja un enlace vacío ("") mientras no exista: la web lo anuncia como "muy pronto".
   links: {
