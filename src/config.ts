@@ -19,7 +19,7 @@ export const NAV = [
   { href: "#about", label: "nav.about" },
   { href: "#features", label: "nav.features" },
   { href: "#platforms", label: "nav.platforms" },
-  { href: "https://ea-foro.vercel.app", label: "nav.forum" },
+  { href: "https://spotter-foro.vercel.app", label: "nav.forum" },
 ] as const;
 
 /** Enlace del menú: los anclajes (#...) cuelgan de la portada; las URLs completas van tal cual. */
